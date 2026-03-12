@@ -1,45 +1,68 @@
-
 # Engineering Novelty Categorizer
 
-The **Engineering Novelty Categorizer** is a machine learning system designed to automatically analyze hardware design descriptions and classify them into different **novelty tiers**. The goal of this project is to assist **intellectual property (IP) and legal reviewers** in quickly identifying how innovative a hardware design is, enabling faster evaluation and prioritization of potentially novel inventions.
+**SDG Goal: SDG 9 – Industry, Innovation and Infrastructure**
 
-This project aligns with **Sustainable Development Goal (SDG) 9: Industry, Innovation, and Infrastructure**, which focuses on fostering innovation and technological advancement.
+This project builds a machine learning system to classify engineering patent documents into **novelty tiers (0–3)** based on their textual descriptions.
+The goal is to assist reviewers and researchers by automatically identifying the level of innovation in hardware-related patents.
 
-## Project Overview
+The project uses the **Harvard USPTO Patent Dataset (HUPD)** from Hugging Face and focuses on patents from the year **2018**.
+A full data engineering pipeline, feature extraction, model training, fine-tuning, and false positive analysis were implemented.
 
-The system processes short **patent-style engineering descriptions** that represent hardware innovations. Each description is labeled with a **novelty tier**, indicating the level of innovation present in the design.
+---
 
-Rather than relying on complex deep learning architectures, the project implements a **simple and interpretable machine learning pipeline**. This approach ensures transparency and easier analysis of how models make their predictions.
+## Project Objectives
 
-## Methodology
+* Extract hardware-related patents from raw JSON patent files
+* Clean and preprocess patent text data
+* Assign novelty scores and novelty tiers
+* Train multiple machine learning models
+* Fine-tune models to reduce false positives
+* Compare models using Macro F1 score
+* Perform false positive analysis for deeper evaluation
 
-The project follows a standard **Natural Language Processing (NLP) pipeline**:
+---
 
-1. **Text Preprocessing**
+## Dataset
 
-   * Cleaning and normalizing engineering descriptions
-   * Removing unnecessary symbols and formatting inconsistencies
+**Source:**
+HUPD – Harvard USPTO Patent Dataset
+[https://huggingface.co/datasets/HUPD/hupd](https://huggingface.co/datasets/HUPD/hupd)
 
-2. **Feature Extraction**
+---
 
-   * Converting text into numerical representations using **TF-IDF (Term Frequency–Inverse Document Frequency)**
+## Libraries Used
 
-3. **Model Training**
+pandas, numpy, matplotlib, seaborn, scikit-learn, xgboost, json, os, re, nltk, tqdm, joblib
 
-   * Training traditional machine learning classifiers including:
+---
 
-     * **K-Nearest Neighbors (KNN)**
-     * **Decision Tree**
-     * **Random Forest**
+## Repository Structure
 
-These models learn patterns in engineering terminology and design descriptions that correspond to different levels of innovation.
-
-## Evaluation
-
-To ensure fair evaluation across all novelty categories, the models are assessed using the **Macro-Averaged F1 Score**. This metric balances **precision and recall** for each class and is particularly useful when the dataset contains **imbalanced novelty tiers**.
-
-## Outcome
-
-The final system provides a **fast, interpretable, and efficient solution** for categorizing engineering design descriptions based on their level of novelty. This helps reviewers filter large volumes of design submissions and focus on the most innovative ideas.
+```
+├── data_processed/
+│   Processed datasets generated during data engineering
+│   Includes filtered, cleaned, and balanced patent datasets
+│
+├── notebooks/
+│   Contains individual notebooks from team members
+│   Used for experiments, testing, and intermediate work
+│
+├── visualization/
+│   Contains plots, charts, and analysis visuals
+│
+├── data_engineering.ipynb
+│   Main data engineering pipeline
+│
+├── model_training.ipynb
+│   Initial model training
+│
+├── model_finetuning.ipynb
+│   Hyperparameter tuning using GridSearch
+│
+├── false_positive_analysis.ipynb
+│   Analysis of incorrect predictions
+│
+└── README.md
+```
 
 ---
